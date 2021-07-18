@@ -1,0 +1,17 @@
+IPAddress strToIP(String INPUTstr){         //Converts a IP Address containing String like 123.456.789.123 to the variable type IPAddress
+  uint8_t ipc[4];
+  char cstringToParse[25];
+  char RAWcstringToParse[25];
+  INPUTstr.toCharArray(RAWcstringToParse, 25);
+  strcpy(cstringToParse, RAWcstringToParse);
+  char * item = strtok(cstringToParse, ".=");
+  uint8_t index = 0;
+  while (item != NULL) {
+    if ((*item >= '0') && (*item <= '9')) {
+      ipc[index++] = atoi(item);
+    }
+    item = strtok(NULL, ".=");
+  }
+  IPAddress ip(ipc[0], ipc[1], ipc[2], ipc[3]);
+  return ip;
+}
